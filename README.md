@@ -1,1 +1,1 @@
-# newcar-calc
+# EMI Calculator for Cars #
