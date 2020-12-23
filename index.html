@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>EMI Calculator for Cars</title>
+
+	<style type="text/css">
+		body, input {
+			font-size: 16px;
+			font-family: Arial;
+		}
+
+        .forminpt {
+			margin: 5px;
+			min-height: 30px;
+		}
+
+		.forminpt * {
+			width: 200px;
+			display: inline-block;
+		}
+
+        .forminpt span {
+            text-align: right;
+			padding-right: 5px;
+        }
+
+		.forminpt input {
+            border: 1px SOLID GRAY;
+            border-radius: 2px;
+            padding: 5px;
+		}
+		input.num {
+			text-align: right;
+		}
+	</style>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script>
+		$( document ).ready(function() {
+			$("input").val(0);
+			$("input").on("input", function() {calculate();});
+		});
+
+		function calculate() {
+			var downPay = parseFloat($("#downPayment input").val());
+			var princ = parseFloat($("#principal input").val()) - downPay;
+			var term  = parseFloat($("#loanYears input").val()) * 12;
+			var intr  = parseFloat($("#interest input").val()) / 1200;
+			var emi = princ * intr / (1 - (Math.pow(1/(1 + intr), term)));
+			var total = emi * term + downPay;
+
+			var locale = "en-IN";
+			var currConfg = {minimumFractionDigits: 2, maximumFractionDigits: 2, style: 'currency', currency: 'INR'};
+			$("#resemi .result").text(emi.toLocaleString(locale, currConfg));
+			$("#restotal .result").text(total.toLocaleString(locale, currConfg));
+		}
+	</script>
+</head>
+<body>
+	<div id="headerInfo">
+		<div id="principal" class="forminpt">
+			<span>Loan Amount</span>
+			<span><input class="num currency" type="text"></span>
+		</div>
+		<div id="downPayment" class="forminpt">
+			<span>Down Payment</span>
+			<span><input class="num currency" type="text"></span>
+		</div>
+		<div id="interest" class="forminpt">
+			<span>Interest %</span>
+			<span><input class="num" type="text"></span>
+		</div>
+		<div id="loanYears" class="forminpt">
+			<span>Loan Years</span>
+			<span><input class="num" type="text"></span>
+		</div>
+		<div id="resemi" class="forminpt">
+			<span>EMI</span>
+			<span class="result">0</span>
+		</div>
+		<div id="restotal" class="forminpt">
+			<span>Total Value</span>
+			<span class="result">0</span>
+		</div>
+	</div>
+</body>
+</html>
