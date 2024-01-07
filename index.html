@@ -51,7 +51,7 @@
 			var emi = princ * intr / (1 - (Math.pow(1/(1 + intr), term)));
 			var total = emi * term + downPay;
 
-			var locale = "en-IN";
+			var locale = "en-US";
 			var currConfg = {minimumFractionDigits: 2, maximumFractionDigits: 2, style: 'currency', currency: 'INR'};
 			$("#resemi .result").text(emi.toLocaleString(locale, currConfg));
 			$("#restotal .result").text(total.toLocaleString(locale, currConfg));
